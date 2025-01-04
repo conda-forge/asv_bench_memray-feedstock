@@ -6,21 +6,21 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/asv_bench_memray-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/asv_bench_memray-{{ version }}.tar.gz
   sha256: f00c552ee20c72c4885d70d7066da043855c62218ffbf2ac0f3f3c9bd99e8d2c
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python >=3.8
+    - python {{ python_min }}
     - hatchling
     - pip
   run:
-    - python >=3.8
+    - python >={{ python_min }}
     - memray >=1.7.0
     - asv_runner >=0.2.0
 
@@ -31,6 +31,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   summary: 'A memray benchmark plugin for asv'
